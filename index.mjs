@@ -1,6 +1,7 @@
 import { GameEngine, Keyboard, createSpriteFrames, drawImageCentered, loadImages } from "./GameEngine.mjs";
 import { WIDTH, HEIGHT } from "./Constants.mjs";
 import { component, ecsUpdate, entity, system } from "./Ecs.mjs";
+import { assets } from "./Assets.mjs";
 
 const position = component({ x: 0.0, y: 0.0 });
 const velocity = component({ x: 0.0, y: 0.0 });
@@ -124,12 +125,13 @@ function createPlayer(playerRun, playerIdle, playerJump, playerFall) {
     GameEngine({
         canvasId: "canvas",
         width: WIDTH,
-        height: HEIGHT
+        height: HEIGHT,
+        fps: 30
     }, async (root) => {
-        const images = await loadImages({ playerJump: "./assets/player_jump.png", playerRun: "./assets/player_run.png", playerIdle: "./assets/player_idle.png", playerFall: "./assets/player_fall.png" });
-        const playerRun = await createSpriteFrames(images.playerRun, 1, 12);
-        const playerIdle = await createSpriteFrames(images.playerIdle, 1, 11);
-        console.log(createPlayer(playerRun, playerIdle, images.playerJump, images.playerFall));
+        const images = await loadImages(assets.images);
+        const playerRun = await createSpriteFrames(images.player_run, 1, 12);
+        const playerIdle = await createSpriteFrames(images.player_idle, 1, 11);
+        console.log(createPlayer(playerRun, playerIdle, images.player_jump, images.player_fall));
         lastT = performance.now();
     }, (t) => {
     }, (ctx, t) => {
