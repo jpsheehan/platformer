@@ -41,7 +41,7 @@ class AssetEventHandler(FileSystemEventHandler):
                 f.write(f'    "{name}": "{pathname},\n')
             f.write("};\n\n")
 
-            f.write("export const assets = { images };\n\n")
+            f.write("export const assets = { images, sounds };\n\n")
 
     def on_any_event(self, event):
         self.writeAssetsFile()
